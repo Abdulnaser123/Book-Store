@@ -1,6 +1,5 @@
 # Bookstore Web App
 
-![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/bfadc9ec-0881-4165-97f2-26e27d64dc83)
 
 > Short Project Description
 
