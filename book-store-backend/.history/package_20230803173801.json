@@ -1,0 +1,10 @@
+{
+  "name": "json-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "faker": "^6.6.6",
+    "json-server": "^0.17.3"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "json-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "faker": "^6.6.6",
+    "fs": "^0.0.1-security",
+    "json-server": "^0.17.3"
+  },
+  "main": "db.js",
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "json-server --watch db.json --port 3001"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
