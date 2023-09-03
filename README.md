@@ -65,6 +65,6 @@ updateBook(updatedBook);
 
 
 ### API
-- Using a ready-made node server you can deal with all HTTP requests `GET, POST, DELETE, UPDATE`
+- Using this ready-made node server you can deal with all HTTP requests `GET, POST, DELETE, UPDATE`
 
 
