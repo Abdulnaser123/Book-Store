@@ -66,6 +66,6 @@ updateBook(updatedBook);
 
 
 ### API
-suing ready made node server you can seal with all HTTP requests GET, POST, DELETE, UPDATE
+- Using a ready-made node server you can deal with all HTTP requests `GET, POST, DELETE, UPDATE`
 
 
