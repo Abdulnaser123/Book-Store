@@ -36,7 +36,7 @@
 ### Setup
 
 - then start server-side app `npm run dev` after downloading node packages `npm install`
-- Install ` ReactJs` json packages `npm i`
+- Install ``ReactJs`` json packages `npm i`
 - start App `npm start`
 
 
