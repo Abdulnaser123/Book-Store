@@ -1,17 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../context/Context";
+/** @format */
+
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getSearchedBooks, getSearchString } from "../Redux/Actions";
 
 const Search = () => {
+  const searchString = useSelector((state) => state.searchString);
+  const dispatch = useDispatch();
   const [keywords, setKeywords] = useState("");
-  const { getSearchedBooks, searchString } = useContext(Context);
-
-  const handleChange = e => {
-    setKeywords(e.target.value);
-    getSearchedBooks(e.target.value);
+  const handleChange = (e) => {
+    const newKeywords = e.target.value;
+    setKeywords(newKeywords);
+    dispatch(getSearchedBooks(keywords));
+    dispatch(getSearchString(e.target.value));
   };
+  console.log(getSearchString);
 
   useEffect(() => {
-    if (searchString === null) {
+    if (searchString === "") {
       setKeywords("");
     }
   }, [searchString]);
@@ -20,9 +26,9 @@ const Search = () => {
     <input
       onChange={handleChange}
       style={{ width: "50%" }}
-      className="form-control py-4 m-auto"
-      type="search"
-      placeholder="e.g. The Prophet"
+      className='form-control py-4 m-auto'
+      type='search'
+      placeholder='e.g. CalculusII'
       value={keywords}
     />
   );

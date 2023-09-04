@@ -1,13 +1,21 @@
 /** @format */
 
-import React, { useContext, Fragment, useState } from "react";
-import { Context } from "../context/Context";
+import React, { Fragment, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { clearSearch, fetchBooks } from "../Redux/Actions";
 import Book from "./Book";
 import { generatePaginationButtons } from "../functions/generatePaginationButtons.js";
 
 const Books = () => {
-  const { books, clearSearch, searchedBooks, searchString } =
-    useContext(Context);
+  const books = useSelector((state) => state.books);
+  const searchedBooks = useSelector((state) => state.searchedBooks);
+  const searchString = useSelector((state) => state.searchString);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,7 +39,10 @@ const Books = () => {
         ) : (
           <Fragment>
             Searching for '{searchString}'
-            <span onClick={() => clearSearch()} className='btn btn-danger ml-2'>
+            <span
+              onClick={() => dispatch(clearSearch())}
+              className='btn btn-danger ml-2'
+            >
               X
             </span>
           </Fragment>

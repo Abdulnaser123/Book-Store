@@ -35,12 +35,7 @@ const Footer = () => {
               </a>
             </p>
             <p>
-              <a
-                href='https://www.google.com/maps/place/%D8%AC%D9%86%D9%8A%D9%86%E2%80%AD/@32.457284,35.3228137,14z/data=!3m1!4b1!4m6!3m5!1s0x151cfed5525459a7:0x8af2eaf8c123e9a4!8m2!3d32.4646353!4d35.2938591!16zL20vMGRnN2Q?entry=ttu'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-white d-flex align-items-center'
-              >
+              <a className='text-white d-flex align-items-center'>
                 <Map className='mr-2' />
                 Location
               </a>
@@ -78,7 +73,6 @@ const Footer = () => {
               width='280'
               height='150'
               title='Google Location'
-              allowfullscreen=''
               loading='lazy'
             ></iframe>
           </div>

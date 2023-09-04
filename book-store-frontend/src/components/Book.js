@@ -1,11 +1,11 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
-import { Context } from "../context/Context";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addCart } from "../Redux/Actions";
 import { Link } from "react-router-dom";
 import { HeartFill, BookHalf, Pen } from "react-bootstrap-icons";
-const Book = ({ bookDetails }) => {
-  const { addCart } = useContext(Context);
+const Book = ({ bookDetails, addCart }) => {
   const { id, title, thumbnail, tags } = bookDetails;
 
   const handleAddCart = () => {
@@ -62,4 +62,4 @@ const Book = ({ bookDetails }) => {
   );
 };
 
-export default Book;
+export default connect(null, { addCart })(Book);
