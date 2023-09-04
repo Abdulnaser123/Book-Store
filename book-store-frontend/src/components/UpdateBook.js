@@ -1,13 +1,16 @@
 /** @format */
-import React, { useContext, useState, useEffect } from "react";
-import { Context } from "../context/Context";
+
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateBook } from "../Redux/Actions";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
 const UpdateBook = () => {
   const { id } = useParams();
-  const { books, updateBook } = useContext(Context);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books);
 
   const initialFormData = {
     title: "",
@@ -38,7 +41,6 @@ const UpdateBook = () => {
     const { title, imgSrc, tags } = formData;
     const updatedTags = tags.split(",").map((tag) => tag.trim());
     const bookToUpdate = books.find((book) => book.id === Number(id));
-    console.log(title, imgSrc, tags);
 
     try {
       await axios.put(`http://localhost:3000/books/${id}`, {
@@ -48,12 +50,27 @@ const UpdateBook = () => {
         tags: updatedTags,
       });
 
-      updateBook(id, title, imgSrc, updatedTags);
-      history.push(`/book/details/${id}`);
-
-      window.location.reload();
+      dispatch(updateBook(id, title, imgSrc, updatedTags));
+      history.push(`/`);
     } catch (error) {
       console.error("Error updating the book:", error);
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64Image = e.target.result;
+        setFormData({
+          ...formData,
+          imgSrc: base64Image,
+        });
+      };
+
+      reader.readAsDataURL(file);
     }
   };
 
@@ -72,13 +89,13 @@ const UpdateBook = () => {
           />
         </div>
         <div className='form-group'>
-          <label>Image URL</label>
+          <label>Image Base64</label>
           <input
-            type='text'
+            type='file'
+            accept='image/*'
+            onChange={handleImageChange}
             className='form-control'
             name='imgSrc'
-            value={formData.imgSrc}
-            onChange={handleInputChange}
           />
         </div>
         <div className='form-group'>

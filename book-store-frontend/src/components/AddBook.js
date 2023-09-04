@@ -1,12 +1,20 @@
 /** @format */
+
 import axios from "axios";
-import React, { useState, useContext } from "react";
-import { Context } from "../context/Context";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addBook, fetchAuthors } from "../Redux/Actions";
+
 import { validateForm } from "../functions/validateForm";
-import { useHistory } from "react-router-dom"; // Import useHistory
+import { useHistory } from "react-router-dom";
 
 const AddBook = () => {
-  const { addBook, authors } = useContext(Context);
+  const authors = useSelector((state) => state.authors);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAuthors());
+  }, [dispatch]);
+
   const initialFormData = {
     title: "",
     authorId: 0,
@@ -17,6 +25,7 @@ const AddBook = () => {
     favorite: false,
     tags: "",
   };
+
   const history = useHistory();
 
   const [errors, setErrors] = useState({});
@@ -30,28 +39,41 @@ const AddBook = () => {
     const newBook = {
       ...formData,
     };
+    dispatch(addBook(newBook));
 
     try {
-      const response = await axios.post(`http://localhost:3000/books/`, {
+      await axios.post(`http://localhost:3000/books/`, {
         ...newBook,
       });
 
-      addBook(newBook);
-      history.push(`/book/details/${response.data.id}`);
-
-      window.location.reload();
+      history.push(`/`);
     } catch (error) {
       console.error("Error Adding the book:", error);
     }
   };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: name === "tags" ? value.split(",") : value,
     }));
-    console.log(formData);
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const base64Image = e.target.result;
+        setFormData({
+          ...formData,
+          thumbnail: base64Image,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -111,11 +133,11 @@ const AddBook = () => {
         <div className='form-group'>
           <label>Thumbnail URL</label>
           <input
-            type='url'
+            type='file'
             className='form-control'
-            value={formData.thumbnail}
             name='thumbnail'
-            onChange={handleInputChange}
+            accept='image/*'
+            onChange={handleImageChange}
           />
         </div>
 

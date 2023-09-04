@@ -1,13 +1,16 @@
 /** @format */
 
-import React, { useContext } from "react";
-import { Context } from "../context/Context";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux"; // Import hooks
 import { useParams } from "react-router-dom";
+import { addCart } from "../Redux/Actions"; // Import the addCart action
 import { HeartFill } from "react-bootstrap-icons";
 
 const BookDetails = () => {
   const { id } = useParams();
-  const { addCart, books } = useContext(Context);
+  const books = useSelector((state) => state.books); // Access the books state
+  const dispatch = useDispatch(); // Get the dispatch function
+
   const book = books.find((book) => book.id === Number(id));
 
   if (!book) {
@@ -21,7 +24,7 @@ const BookDetails = () => {
   const { title, thumbnail, description, publisher, tags, authorId } = book;
 
   const handleAddCart = () => {
-    addCart(id);
+    dispatch(addCart(Number(id)));
   };
 
   return (

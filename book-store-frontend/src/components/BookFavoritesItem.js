@@ -1,18 +1,21 @@
 /** @format */
 
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../context/Context";
+import { useSelector, useDispatch } from "react-redux";
+import { removeCart } from "../Redux/Actions";
 
-const BookFavaritesItem = ({ cart }) => {
-  const { books, removeCart } = useContext(Context);
+const BookFavoritesItem = ({ cart }) => {
+  const books = useSelector((state) => state.books);
+  console.log(cart);
   const { id } = cart;
 
-  const book = books.filter((book) => book.id === Number(id));
-  const { title, thumbnail } = book[0];
+  const book = books.find((book) => book.id === Number(id));
+  const { title, thumbnail } = book;
+  const dispatch = useDispatch();
 
   const handleCartRemove = () => {
-    removeCart(id);
+    dispatch(removeCart(id));
   };
 
   return (
@@ -38,4 +41,4 @@ const BookFavaritesItem = ({ cart }) => {
   );
 };
 
-export default BookFavaritesItem;
+export default BookFavoritesItem;

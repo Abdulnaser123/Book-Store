@@ -1,12 +1,11 @@
 /** @format */
 
-import React, { useContext } from "react";
-import { Context } from "../context/Context";
+import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { HeartFill } from "react-bootstrap-icons";
 
-const Navbar = () => {
-  const { carts } = useContext(Context);
+const Navbar = ({ carts }) => {
   return (
     <div className='bg-dark border-bottom sticky-top shadow-sm p-3 px-md-4 mb-3'>
       <div className='container d-flex flex-column flex-md-row align-items-center'>
@@ -21,7 +20,7 @@ const Navbar = () => {
           }}
           to='/'
         >
-          BookUniverse
+          BookishBytes
         </Link>
         <nav className='my-2 my-md-0 mr-md-3'>
           <Link className='p-2 text-white' to='/addBook'>
@@ -41,4 +40,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  carts: state.carts,
+});
+
+export default connect(mapStateToProps)(Navbar);
