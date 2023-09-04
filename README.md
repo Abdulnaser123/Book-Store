@@ -1,4 +1,4 @@
-# BookishBytes App ![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/4deb053b-74f6-426c-9e31-2a573d1493c5)
+# BookishBytes 💾
 
 
 ![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/8884e575-e3ec-4bcb-b97f-510865d21a45)
