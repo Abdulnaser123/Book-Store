@@ -1,11 +1,11 @@
 /** @format */
 
 const initialState = {
-  books: [], // Initial books array
+  books: [],
   searchString: null,
   searchedBooks: [],
-  carts: [], // Initial carts array
-  authors: [], // Initial authors array
+  carts: [],
+  authors: [],
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -49,6 +49,14 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         carts: state.carts.filter((cart) => cart.id !== action.payload),
       };
+    case "REMOVE_BOOK":
+      const bookIdToRemove = action.payload;
+      return {
+        ...state,
+        books: state.books.filter((book) => book.id !== bookIdToRemove),
+        carts: state.carts.filter((cart) => cart.id !== bookIdToRemove),
+      };
+
     case "GET_SEARCHED_STRING":
       return {
         ...state,

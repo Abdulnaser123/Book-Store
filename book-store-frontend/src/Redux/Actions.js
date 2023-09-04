@@ -1,11 +1,8 @@
 /** @format */
 
-// actions.js
 import axios from "axios";
 import * as ActionTypes from "./ActionsTypes";
 
-// Action creators for fetching books and authors
-// Action creator for fetching books
 export const fetchBooks = () => {
   return async (dispatch) => {
     try {
@@ -26,6 +23,19 @@ export const fetchAuthors = () => {
       dispatch({
         type: ActionTypes.FETCH_AUTHORS,
         payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+};
+export const removeBook = (id) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`http://localhost:3000/books/${id}`);
+      dispatch({
+        type: ActionTypes.REMOVE_BOOK,
+        payload: id,
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -53,7 +63,6 @@ export const fetchCart = (carts) => ({
   payload: carts,
 });
 
-// Action creators for search
 export const getSearchString = (searchString) => ({
   type: ActionTypes.GET_SEARCHED_STRING,
   payload: searchString,
@@ -68,7 +77,6 @@ export const clearSearch = () => ({
   type: ActionTypes.CLEAR_SEARCH,
 });
 
-// Action creators for updating a book
 export const updateBook = (id, title, thumbnail, tags) => ({
   type: ActionTypes.UPDATE_BOOK,
   payload: {
@@ -79,7 +87,6 @@ export const updateBook = (id, title, thumbnail, tags) => ({
   },
 });
 
-// Action creator for adding a book
 export const addBook = (newBook) => ({
   type: ActionTypes.ADD_BOOK,
   payload: newBook,

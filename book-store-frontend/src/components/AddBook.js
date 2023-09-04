@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addBook, fetchAuthors } from "../Redux/Actions";
+import { handleImageChange } from "../functions/image64base";
 
 import { validateForm } from "../functions/validateForm";
 import { useHistory } from "react-router-dom";
@@ -57,23 +58,6 @@ const AddBook = () => {
       ...prevFormData,
       [name]: name === "tags" ? value.split(",") : value,
     }));
-  };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const base64Image = e.target.result;
-        setFormData({
-          ...formData,
-          thumbnail: base64Image,
-        });
-      };
-
-      reader.readAsDataURL(file);
-    }
   };
 
   return (
@@ -137,7 +121,7 @@ const AddBook = () => {
             className='form-control'
             name='thumbnail'
             accept='image/*'
-            onChange={handleImageChange}
+            onChange={(e) => handleImageChange(setFormData, formData, e)}
           />
         </div>
 

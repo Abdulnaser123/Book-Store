@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addCart } from "../Redux/Actions"; // Import your addCart action
+import { addCart } from "../Redux/Actions";
 import { Link } from "react-router-dom";
 import { HeartFill, BookHalf, Pen } from "react-bootstrap-icons";
 const Book = ({ bookDetails, addCart }) => {

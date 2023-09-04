@@ -1,15 +1,17 @@
 /** @format */
 
 import React from "react";
-import { useSelector, useDispatch } from "react-redux"; // Import hooks
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addCart } from "../Redux/Actions"; // Import the addCart action
-import { HeartFill } from "react-bootstrap-icons";
+import { addCart, removeBook } from "../Redux/Actions";
+import { HeartFill, Trash2Fill } from "react-bootstrap-icons";
+import { useHistory } from "react-router-dom";
 
 const BookDetails = () => {
   const { id } = useParams();
-  const books = useSelector((state) => state.books); // Access the books state
-  const dispatch = useDispatch(); // Get the dispatch function
+  const books = useSelector((state) => state.books);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const book = books.find((book) => book.id === Number(id));
 
@@ -25,6 +27,10 @@ const BookDetails = () => {
 
   const handleAddCart = () => {
     dispatch(addCart(Number(id)));
+  };
+  const handleRemove = (id) => {
+    dispatch(removeBook(Number(id)));
+    history.push(`/`);
   };
 
   return (
@@ -56,6 +62,12 @@ const BookDetails = () => {
               onClick={handleAddCart}
             >
               <HeartFill size={20} color={"red"} /> Add to Favorites
+            </button>
+            <button
+              className='btn btn-danger border-primary rounded-pill'
+              onClick={() => handleRemove(id)}
+            >
+              <Trash2Fill size={20} color={"white"} /> Remove Book
             </button>
           </div>
         </div>

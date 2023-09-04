@@ -6,16 +6,15 @@ import { getSearchedBooks, getSearchString } from "../Redux/Actions";
 
 const Search = () => {
   const searchString = useSelector((state) => state.searchString);
-  console.log(searchString);
   const dispatch = useDispatch();
   const [keywords, setKeywords] = useState("");
-
   const handleChange = (e) => {
     const newKeywords = e.target.value;
     setKeywords(newKeywords);
     dispatch(getSearchedBooks(keywords));
     dispatch(getSearchString(e.target.value));
   };
+  console.log(getSearchString);
 
   useEffect(() => {
     if (searchString === "") {

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBook } from "../Redux/Actions";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import { handleImageChange } from "../functions/image64base";
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -56,23 +57,6 @@ const UpdateBook = () => {
       console.error("Error updating the book:", error);
     }
   };
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        const base64Image = e.target.result;
-        setFormData({
-          ...formData,
-          imgSrc: base64Image,
-        });
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <div className='container'>
@@ -93,7 +77,7 @@ const UpdateBook = () => {
           <input
             type='file'
             accept='image/*'
-            onChange={handleImageChange}
+            onChange={(e) => handleImageChange(setFormData, formData, e)}
             className='form-control'
             name='imgSrc'
           />
