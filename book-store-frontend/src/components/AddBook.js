@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addBook, fetchAuthors } from "../Redux/Actions";
 import { handleImageChange } from "../functions/image64base";
-
 import { validateForm } from "../functions/validateForm";
 import { useHistory } from "react-router-dom";
 
@@ -116,7 +115,7 @@ const AddBook = () => {
         )}
 
         <div className='form-group'>
-          <label>Thumbnail URL</label>
+          <label>imgSrc URL</label>
           <input
             type='file'
             className='form-control'

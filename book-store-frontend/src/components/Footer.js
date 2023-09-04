@@ -35,7 +35,10 @@ const Footer = () => {
               </a>
             </p>
             <p>
-              <a className='text-white d-flex align-items-center'>
+              <a
+                href='www.google.com'
+                className='text-white d-flex align-items-center'
+              >
                 <Map className='mr-2' />
                 Location
               </a>

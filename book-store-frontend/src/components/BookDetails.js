@@ -1,20 +1,24 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addCart, removeBook } from "../Redux/Actions";
+import { addCart, removeBook, fetchBooks } from "../Redux/Actions";
 import { HeartFill, Trash2Fill } from "react-bootstrap-icons";
 import { useHistory } from "react-router-dom";
 
 const BookDetails = () => {
   const { id } = useParams();
+
   const books = useSelector((state) => state.books);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   const history = useHistory();
-
   const book = books.find((book) => book.id === Number(id));
-
   if (!book) {
     return (
       <div className='container'>

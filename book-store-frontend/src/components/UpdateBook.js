@@ -16,7 +16,7 @@ const UpdateBook = () => {
 
   const initialFormData = {
     title: "",
-    imgSrc: "",
+    thumbnail: "",
     tags: "",
   };
 
@@ -28,7 +28,7 @@ const UpdateBook = () => {
     if (bookToUpdate) {
       setFormData({
         title: bookToUpdate.title,
-        imgSrc: bookToUpdate.thumbnail,
+        thumbnail: bookToUpdate.thumbnail,
         tags: bookToUpdate.tags.join(", "),
       });
     }
@@ -43,19 +43,19 @@ const UpdateBook = () => {
     e.preventDefault();
     const errors = validateForm(setErrors, formData);
     if (Object.keys(errors).length === 0) {
-      const { title, imgSrc, tags } = formData;
+      const { title, thumbnail, tags } = formData;
       const updatedTags = tags.split(",").map((tag) => tag.trim());
       const bookToUpdate = books.find((book) => book.id === Number(id));
 
       try {
         await axios.put(`http://localhost:3000/books/${id}`, {
           ...bookToUpdate,
-          ...(title && { title }),
-          thumbnail: imgSrc,
+          title,
+          thumbnail,
           tags: updatedTags,
         });
 
-        dispatch(updateBook(id, title, imgSrc, updatedTags));
+        dispatch(updateBook(id, title, thumbnail, updatedTags));
         history.push(`/`);
       } catch (error) {
         console.error("Error updating the book:", error);
@@ -87,7 +87,7 @@ const UpdateBook = () => {
             accept='image/*'
             onChange={(e) => handleImageChange(setFormData, formData, e)}
             className='form-control'
-            name='imgSrc'
+            name='thumbnail'
           />
         </div>
         <div className='form-group'>
