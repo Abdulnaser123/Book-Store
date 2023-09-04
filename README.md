@@ -1,4 +1,5 @@
-# Bookstore Web App
+# BookishBytes App ![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/4deb053b-74f6-426c-9e31-2a573d1493c5)
+
 
 ![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/8884e575-e3ec-4bcb-b97f-510865d21a45)
 
@@ -18,8 +19,8 @@
 ## Features
 
 - Update Book Info
-- Add Book To Favoriate List
-- Add New Book To Books Store
+- Add Book To Favorite List
+- Add New Book to bookstore
 - Realtime Books Search
 - Show Book Details
 - Delete Book
@@ -35,7 +36,7 @@
 ### Setup
 
 - then start server-side app `npm run dev` after downloading node packages `npm install`
-- Install ```javascript ReactJs``` json packages `npm i`
+- Install ` ReactJs` json packages `npm i`
 - start App `npm start`
 
 
