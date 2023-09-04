@@ -35,21 +35,22 @@ const AddBook = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    validateForm(setErrors, formData);
+    const errors = validateForm(setErrors, formData);
+    if (!Object.keys(errors).length) {
+      const newBook = {
+        ...formData,
+      };
+      dispatch(addBook(newBook));
 
-    const newBook = {
-      ...formData,
-    };
-    dispatch(addBook(newBook));
+      try {
+        await axios.post(`http://localhost:3000/books/`, {
+          ...newBook,
+        });
 
-    try {
-      await axios.post(`http://localhost:3000/books/`, {
-        ...newBook,
-      });
-
-      history.push(`/`);
-    } catch (error) {
-      console.error("Error Adding the book:", error);
+        history.push(`/`);
+      } catch (error) {
+        console.error("Error Adding the book:", error);
+      }
     }
   };
   const handleInputChange = (e) => {

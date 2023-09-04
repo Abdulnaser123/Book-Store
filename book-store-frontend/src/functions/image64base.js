@@ -13,7 +13,6 @@ export const handleImageChange = (setFormData, formData, e) => {
         imgSrc: base64Image,
       });
     };
-
     reader.readAsDataURL(file);
   }
   return file;

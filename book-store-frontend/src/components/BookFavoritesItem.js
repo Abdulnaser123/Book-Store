@@ -7,7 +7,6 @@ import { removeCart } from "../Redux/Actions";
 
 const BookFavoritesItem = ({ cart }) => {
   const books = useSelector((state) => state.books);
-  console.log(cart);
   const { id } = cart;
 
   const book = books.find((book) => book.id === Number(id));
