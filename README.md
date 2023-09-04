@@ -1,5 +1,6 @@
 # Bookstore Web App
 
+![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/8884e575-e3ec-4bcb-b97f-510865d21a45)
 
 > Short Project Description
 
@@ -21,19 +22,20 @@
 - Add New Book To Books Store
 - Realtime Books Search
 - Show Book Details
+- Delete Book
 
 ---
 
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/your-username/your-repo-name.git`
+- Clone this repo to your local machine using `https://github.com/Abdulnaser123/Book-Store`
 
 
 ### Setup
 
-- then start server side app `npm run dev`
-- install react json packages `npm i`
+- then start server-side app `npm run dev` after download node packages `npm istall`
+- Install ```ReactJs```` json packages `npm i`
 - start App `npm start`
 
 
@@ -47,7 +49,7 @@ const newBook = {
   // ... other book details
 };
 
-// Call the addBook function from your context
+// Call the addBook function from your redux actions
 addBook(newBook);
 ```
 ### Updating a Book
@@ -59,9 +61,37 @@ const updatedBook = {
   // ... other updated book details
 };
 
-// Call the updateBook function from your context
+// Call the updateBook function from your Redux actions
 updateBook(updatedBook);
 ```
+
+### Storing imgFile using Base64 Image Encoder
+
+
+```javascirpt
+/** @format */
+
+export const handleImageChange = (setFormData, formData, e) => {
+  const file = e.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const base64Image = e.target.result;
+      setFormData({
+        ...formData,
+        imgSrc: base64Image,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+  return file;
+};
+```
+![image](https://github.com/Abdulnaser123/Book-Store/assets/108693961/4deb053b-74f6-426c-9e31-2a573d1493c5)
+
 
 
 ### API
