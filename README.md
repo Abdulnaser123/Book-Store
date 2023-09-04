@@ -9,12 +9,17 @@
 ---
 
 ## Table of Contents
-
+- [Built With](#builtwith)
 - [Features](#features)
 - [Clone](#Clone)
 - [Setup](#setup)
 
 ---
+
+## Built Wuth
+- React js 
+- Redux
+- RESTful API
 
 ## Features
 
