@@ -69,7 +69,6 @@ updateBook(updatedBook);
 
 
 ```javascript
-/** @format */
 
 export const handleImageChange = (setFormData, formData, e) => {
   const file = e.target.files[0];
