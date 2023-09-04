@@ -6,6 +6,7 @@ import { updateBook } from "../Redux/Actions";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 import { handleImageChange } from "../functions/image64base";
+import { validateForm } from "../functions/validateForm";
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -20,6 +21,8 @@ const UpdateBook = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     const bookToUpdate = books.find((book) => book.id === Number(id));
     if (bookToUpdate) {
@@ -38,23 +41,25 @@ const UpdateBook = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    const errors = validateForm(setErrors, formData);
+    if (Object.keys(errors).length === 0) {
+      const { title, imgSrc, tags } = formData;
+      const updatedTags = tags.split(",").map((tag) => tag.trim());
+      const bookToUpdate = books.find((book) => book.id === Number(id));
 
-    const { title, imgSrc, tags } = formData;
-    const updatedTags = tags.split(",").map((tag) => tag.trim());
-    const bookToUpdate = books.find((book) => book.id === Number(id));
+      try {
+        await axios.put(`http://localhost:3000/books/${id}`, {
+          ...bookToUpdate,
+          ...(title && { title }),
+          thumbnail: imgSrc,
+          tags: updatedTags,
+        });
 
-    try {
-      await axios.put(`http://localhost:3000/books/${id}`, {
-        ...bookToUpdate,
-        ...(title && { title }),
-        thumbnail: imgSrc,
-        tags: updatedTags,
-      });
-
-      dispatch(updateBook(id, title, imgSrc, updatedTags));
-      history.push(`/`);
-    } catch (error) {
-      console.error("Error updating the book:", error);
+        dispatch(updateBook(id, title, imgSrc, updatedTags));
+        history.push(`/`);
+      } catch (error) {
+        console.error("Error updating the book:", error);
+      }
     }
   };
 
@@ -72,6 +77,9 @@ const UpdateBook = () => {
             onChange={handleInputChange}
           />
         </div>
+        {errors.title && (
+          <div className='alert alert-danger mt-2'>{errors.title}</div>
+        )}
         <div className='form-group'>
           <label>Image Base64</label>
           <input
@@ -92,6 +100,9 @@ const UpdateBook = () => {
             onChange={handleInputChange}
           />
         </div>
+        {errors.tags && (
+          <div className='alert alert-danger mt-2'>{errors.tags}</div>
+        )}
         <button type='submit' className='btn btn-primary'>
           Update
         </button>

@@ -14,7 +14,6 @@ const Search = () => {
     dispatch(getSearchedBooks(keywords));
     dispatch(getSearchString(e.target.value));
   };
-  console.log(getSearchString);
 
   useEffect(() => {
     if (searchString === "") {
