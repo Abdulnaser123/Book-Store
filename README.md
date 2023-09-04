@@ -68,7 +68,7 @@ updateBook(updatedBook);
 ### Storing imgFile using Base64 Image Encoder
 
 
-```javascirpt
+```javascript
 /** @format */
 
 export const handleImageChange = (setFormData, formData, e) => {
